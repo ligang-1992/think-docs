@@ -9,21 +9,22 @@
 ～% docsify serve ./think-docs
 ```
 
-
-
 ```
 npm安装模块
 【npm install xxx】利用 npm 安装xxx模块到当前命令行所在目录；
 【npm install -g xxx】利用npm安装全局模块xxx；
-本地安装时将模块写入package.json中：
 
+本地安装时将模块写入package.json中：
 【npm install xxx】安装但不写入package.json；
 【npm install xxx --save】 安装并写入package.json的"dependencies"中；
 【npm install xxx --save-dev】安装并写入package.json的"devDependencies"中。
+
 npm 删除模块
 【npm uninstall xxx】删除xxx模块；
 【npm uninstall -g xxx】删除全局模块xxx；
 ```
+
+更新时间：2020-04-12
 
 
 
@@ -38,7 +39,7 @@ sudo xattr -r -d com.apple.quarantine
 xcode-select --install
 ```
 
-
+更新时间：2020-04-12
 
 ##### 查看IP地址
 
@@ -50,7 +51,7 @@ xcode-select --install
 ～% ifconfig | grep "inet"
 ```
 
-
+更新时间：2020-04-12
 
 ### 安装 vue
 
@@ -75,9 +76,7 @@ Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。你可以使用 nv
 ～% vue --version
 ```
 
-
-
-### 日期：2019-12-11
+更新时间：2020-04-12
 
 #### 安装node
 
@@ -86,9 +85,7 @@ Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。你可以使用 nv
 ～% brew link node
 ```
 
-
-
-### 日期：2019-12-01
+更新时间：2019-12-11
 
 #### 编辑hosts文件
 
@@ -96,19 +93,17 @@ Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。你可以使用 nv
 ～% vi /etc/hosts
 ```
 
-日期：2019-11-29
-
 ```
 配置python环境：
 ～% vi ~/.bash_profile
 alias python="/usr/local/bin/python3"
 ```
 
+更新时间：2019-12-01
 
+#### Home Brew 安装
 
-### 日期：2019-11-28
-
-#### 1、解决brew 更新慢的问题
+##### 1、解决brew 更新慢的问题
 
 ```
 第一种：
@@ -170,13 +165,13 @@ $ git remote set-url origin https://github.com/Homebrew/homebrew-core.git
 
 ```
 
-#### 2、HomeBrew 更新时打印日志
+##### 2、HomeBrew 更新时打印日志
 
 ```
 ～% brew update --verbose
 ```
 
-#### 3、Mac 上卸载node和npm
+##### 3、Mac 上卸载node和npm
 
 ```
 卸载node
@@ -194,16 +189,14 @@ node //command not found
 npm //command not found
 ```
 
-#### 4、Mac 安装 cnpm
+##### 4、Mac 安装 cnpm
 
 ```
 sudo npm install -g cnpm --registry=https://registry.npm.taobao.org --verbose
 cnpm -v
 ```
 
-
-
-### 日期：2019-11-14
+更新时间：2019-11-28
 
 #### 全屏化程序坞不会隐藏
 
@@ -217,21 +210,19 @@ cnpm -v
 ～% killall Dock
 ```
 
+更新时间：2019-11-14
 
+#### Mac 使用技巧
 
-### 日期：2019-11-06
-
-#### 1、mac 创建文件
+##### 1、mac 创建文件
 
 ```
 ～% touch file_name.xxx
 ```
 
+更新时间：2019-11-06
 
-
-### 日期：2019-07-12
-
-#### 1、设置mac安装软件限制  
+##### 1、设置mac安装软件限制  
 
 ```
 ## 需要输入电脑密码
@@ -254,7 +245,7 @@ mac 切换管理员用户：
 修改文件读写权限：sudo chmod -R 775 文件名
 ```
 
-#### 2、gradle 环境变量配 置：
+##### 2、gradle 环境变量配置：
 
 ```
 1、编辑配置文件
@@ -269,7 +260,7 @@ export PATH=$PATH:$GRADLE_HOME/bin
 source ～/.bash_profile
 ```
 
-#### 3、brew 安装
+##### 3、brew 安装
 
 ```
 安装brew：
@@ -289,3 +280,4 @@ brew 常用命令：
 		brew cleanup -n          # 查看可清理的旧版本包，不执行实际操作
 ```
 
+更新时间：2019-07-12
