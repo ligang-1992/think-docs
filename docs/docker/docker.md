@@ -7,7 +7,10 @@
 ～ % docker pull nacos/nacos-server
 
 创建容器：
+# 标准版
 ～ % docker run --env MODE=standalone --name dev-nacos -d -p 8848:8848 nacos/nacos-server
+
+# 详细版
 ~ % docker  run \
 --name dev-nacos -d \
 -p 8848:8848 \

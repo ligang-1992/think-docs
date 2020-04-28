@@ -35,4 +35,6 @@
 - ###### 工具
 
   - [vs code](./docs/tools/vscode.md)
+  - [git](./docs/tools/git.md)
+  - [idea](./docs/tools/idea.md)
 
