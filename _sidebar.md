@@ -5,7 +5,7 @@
   * [Java基础](./docs/b-1面试题总结-Java基础.md)
   * [Java集合](./docs/b-2Java集合.md)
   * [Java多线程](./docs/b-3Java多线程.md)
-  * [jvm](./docs/b-4jvm.md)
+  * [JVM](./docs/b-4jvm.md)
 * ###### 计算机基础
   
   * [计算机网络](./docs/c-1计算机网络.md)
@@ -16,25 +16,25 @@
 
 - ###### Linux 基础
 
-  - [linux](./docs/linux/linux.md)
+  - [Linux](./docs/linux/linux.md)
 
 - ###### Docker 基础
 
-  * [docker](./docs/docker/docker.md)
+  * [Docker](./docs/docker/docker.md)
 
 - ###### Mac OS 使用
 
-  - [mac](./docs/mac/mac.md)
+  - [Mac OS](./docs/mac/mac.md)
 
 - ###### Excel 使用
 
-  - [excel](./docs/excel/excel.md)
+  - [Excel](./docs/excel/excel.md)
 
 - ###### 阅读
 
 - ###### 工具
 
-  - [vs code](./docs/tools/vscode.md)
-  - [git](./docs/tools/git.md)
-  - [idea](./docs/tools/idea.md)
+  - [Visual Studio Code](./docs/tools/vscode.md)
+  - [Git](./docs/tools/git.md)
+  - [IntelliJ IDEA](./docs/tools/idea.md)
 
