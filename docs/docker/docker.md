@@ -1,6 +1,6 @@
-#### 2020-04-03
+#### 
 
-###### Spring Cloud Alibaba
+#### Spring Cloud Alibaba
 
 ```
 拉取容器：
@@ -24,11 +24,11 @@
 nacos/nacos-server
 ```
 
+更新时间：2020-03-21
 
 
-#### 2020-04-02
 
-###### Docker 安装
+#### Docker 安装
 
 ```
 拉取镜像
@@ -43,11 +43,11 @@ nacos/nacos-server
     postgres
 ```
 
+更新时间：2020-03-21
 
 
-#### 2020-01-18
 
-Docker 安装 rabbitmq
+#### Docker 安装 rabbitmq
 
 ```
 第一种安装（无管理界面）：
@@ -64,11 +64,11 @@ Docker 安装 rabbitmq
 ~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:management
 ```
 
+更新时间：2020-03-21
 
 
-#### 2019-11-05
 
-###### Docker 安装 oracle database
+#### Docker 安装 oracle database
 
 ```
 拉取image：
@@ -88,11 +88,11 @@ Docker 安装 rabbitmq
 oracle 默认密码： Oradoc_db1
 ```
 
+更新时间：2020-03-21
 
 
-#### 2019-03-21
 
-###### 容器命令：
+#### 容器命令：
 
 ```
 docker ps：查看容器
@@ -110,9 +110,11 @@ docker rm [container name]：删除容器
 docker rm -f [container name]：删除运行中的容器
 ```
 
+更新时间：2019-03-21
 
 
-###### Docker 运行 mysql：
+
+#### Docker 运行 mysql：
 
 ```
 # 第一种
@@ -131,9 +133,11 @@ $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/my
 -p 3306:3306->把容器的mysql端口3306映射到宿主机的3306端口，这样想访问mysql就可以直接访问宿主机的3306端口。
 -v /opt/data/mysql:/var/lib/mysql->把宿主机/opt/data/mysql/目录映射到容器的/var/lib/mysql目录
 
+更新时间：2019-03-21
 
 
-###### Docker 运行 redis：
+
+#### Docker 运行 redis：
 
 ```
 $ docker run -v /Users/ligang/devtools/docker/redis/data:/data  -p 6379:6379 --name dev-redis -d redis:latest redis-server --appendonly yes --requirepass "123456"
@@ -141,9 +145,11 @@ $ docker run -v /Users/ligang/devtools/docker/redis/data:/data  -p 6379:6379 --n
 $ docker exec -it finance-redis redis-cli -h 192.168.74.128 -p 6379
 ```
 
+更新时间：2019-03-21
 
 
-###### Docker 运行 mongo：
+
+#### Docker 运行 mongo：
 
 ```
 $ docker run --name dev-mongo -p 27017:27017 -v /Users/ligang/devtools/docker/mongo/data/configdb:/data/configdb/ -v /Users/ligang/devtools/docker/mongo/data/db/:/data/db/ -d mongo --auth
@@ -155,7 +161,7 @@ $ docker run --name dev-mongo -p 27017:27017 -v /Users/ligang/devtools/docker/mo
 docker run --name work-mongo -p 27017:27017 -v /Users/ligang/devtools/docker/work/mongo/data/configdb:/data/configdb/ -v /Users/ligang/devtools/docker/work/mongo/data/db/:/data/db/ -d mongo
 ```
 
-创建mongo用户
+#### 创建mongo用户
 
 ```
 # 进入mongo容器
@@ -166,9 +172,11 @@ $  docker exec -it dev-mongo mongo admin
 
 ```
 
+更新时间：2019-03-21
 
 
-Docker 运行 zookeeper
+
+#### Docker 运行 zookeeper
 
 ```
 $ docker run -d -p 2181:2181 -v /Users/ligang/devtools/docker/zookeeper/data/:/data/ --name=learn-zookeeper --privileged zookeeper
@@ -177,3 +185,4 @@ $ docker exec -it [zookeeper容器id] /bin/bash
 	进入docker的zookeeper容器，找到zkCli.sh，执行./zkCli.sh
 ```
 
+更新时间：2019-03-21
