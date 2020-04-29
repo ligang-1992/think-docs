@@ -1,3 +1,12 @@
+#### IntelliJ IDEA忽略大小写提示
+
+```
+1、进入设置界面
+2、Editor -> General -> Code Completion -> Match case 取消勾选
+```
+
+
+
 #### IntelliJ IDEA常用快捷键
 
 ##### 智能提示

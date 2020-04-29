@@ -74,7 +74,7 @@ go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全
 
 2、Setting.json配置
 {
-     "go.useLanguageServer": true,
+    "go.useLanguageServer": true,
     "editor.minimap.renderCharacters": false,
     "editor.minimap.enabled": false,
     "terminal.external.osxExec": "iTerm.app",
@@ -99,5 +99,12 @@ go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全
     "debug.console.lineHeight": 30,
 }
 
+```
+
+#### 7、编译成可执行文件
+
+```
+# 进入项目目录下
+～% go build -o application_name
 ```
 

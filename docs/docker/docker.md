@@ -1,4 +1,38 @@
-#### 
+### Elasticsearch 安装
+
+```
+# 创建容器
+～% docker run -p 9200:9200 -p 9300:9300 --name dev-elk -e "discovery.type=single-node" -e "cluster.name=elasticsearch" -v /Users/ligang/devtools/docker/elasticsearch/plugins:/usr/share/elasticsearch/plugins -v /Users/ligang/devtools/docker/elasticsearch/data:/usr/share/elasticsearch/data -d elasticsearch:7.6.2 
+
+# 创建容器 官方版
+～% docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:tag
+
+# 安装插件
+# 1、进入容器
+～% docker exec -it contain-id /bin/bash
+# 2、安装插件
+～% ./bin/elasticsearch-plugin install analysis-icu(插件名称)
+```
+
+
+
+#### Rocket MQ 安装
+
+```
+1、拉取镜像
+～ % docker pull apacherocketmq/rocketmq
+
+2、创建容器
+第一步：创建mqnamesrv
+～ % docker run -d -p 9876:9876 -v /Users/ligang/devtools/docker/rocketmq/data/namesrv/logs:/root/logs -v /Users/ligang/devtools/docker/rocketmq/data/namesrv/store:/root/store --name rmqnamesrv -e "MAX_POSSIBLE_HEAP=100000000" apacherocketmq/rocketmq:4.5.0 sh mqnamesrv
+
+第二步：创建broker
+～ % docker run -d -p 10911:10911 -p 10909:10909 -v /Users/ligang/devtools/docker/rocketmq/data/broker/logs:/root/logs -v /Users/ligang/devtools/docker/rocketmq/data/broker/store:/root/store -v /Users/ligang/devtools/docker/rocketmq/data/broker/conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf --name rmqbroker --link rmqnamesrv:namesrv -e "NAMESRV_ADDR=namesrv:9876" -e "MAX_POSSIBLE_HEAP=200000000" apacherocketmq/rocketmq:4.5.0 sh mqbroker
+
+
+```
+
+
 
 #### Spring Cloud Alibaba
 

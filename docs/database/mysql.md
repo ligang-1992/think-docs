@@ -1,3 +1,9 @@
+#### SQL查询语句的执行步骤
+
+![](/Users/ligang/github/think-docs/images/1EA288AB4D8D62103F763325099B0CD3.jpg)
+
+图片来自于：极客时间-MySQL实战45讲
+
 #### 多表查询修改
 
 ```
