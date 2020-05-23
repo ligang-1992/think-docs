@@ -1,8 +1,34 @@
+### Docker 容器中创建文件
+
+```
+# 以root权限进入容器
+～% docker exec -it --user root dev-oracle /bin/bash
+# 创建文件
+～% mkdir xxx.xx
+```
+
+
+
+### Nginx 安装
+
+```
+# 第一种安装方法
+~% docker run -d -p 9870:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro -v /Users/ligang/devtools/docker/nginx/content:/usr/share/nginx/html:ro -v /Users/ligang/devtools/docker/nginx/cache:/var/cache/nginx -v /Users/ligang/devtools/docker/nginx/logs:/var/log/nginx nginx:1.18.0
+
+# 第二种安装方法
+~% docker run -d -p 8081:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro -v /Users/ligang/devtools/docker/nginx/content:/usr/share/nginx/html:ro nginx:1.18.0
+```
+
+
+
 ### Elasticsearch 安装
 
 ```
+# 拉取镜像
+~% docker pull elasticsearch:7.6.2
+
 # 创建容器
-～% docker run -p 9200:9200 -p 9300:9300 --name dev-elk -e "discovery.type=single-node" -e "cluster.name=elasticsearch" -v /Users/ligang/devtools/docker/elasticsearch/plugins:/usr/share/elasticsearch/plugins -v /Users/ligang/devtools/docker/elasticsearch/data:/usr/share/elasticsearch/data -d elasticsearch:7.6.2 
+～% docker run -p 9200:9200 -p 9300:9300 --name dev-elk -e "discovery.type=single-node" -e "cluster.name=elasticsearch" -v /Users/ligang/devtools/docker/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins -v /Users/ligang/devtools/docker/elk/elasticsearch/data:/usr/share/elasticsearch/data -d elasticsearch:7.6.2 
 
 # 创建容器 官方版
 ～% docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:tag
@@ -12,6 +38,18 @@
 ～% docker exec -it contain-id /bin/bash
 # 2、安装插件
 ～% ./bin/elasticsearch-plugin install analysis-icu(插件名称)
+```
+
+
+
+### Kibana 安装
+
+```
+# 第一种 官方
+～% $ docker run -d --name kibana --net somenetwork -p 5601:5601 kibana:tag
+
+# 第二种 详细配置安装
+～% docker run -d --name dev-kibana -p 5601:5601 --restart=always --log-driver json-file --log-opt max-size=100m --log-opt max-file=2 -v /Users/ligang/devtools/docker/elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml kibana:7.6.2
 ```
 
 
@@ -55,14 +93,14 @@
 -e MODE=standalone \
 -e PREFER_HOST_MODE=hostname \
 -v /Users/ligang/devtools/docker/nacos/logs:/home/nacos/logs \
-nacos/nacos-server
+nacos/nacos-server:1.2.1
 ```
 
 更新时间：2020-03-21
 
 
 
-#### Docker 安装
+#### Docker 安装postgresql
 
 ```
 拉取镜像
@@ -95,7 +133,7 @@ nacos/nacos-server
 ~ % docker pull rabbitmq:management
 
 创建容器：
-~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:management
+~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:3.8.3-management
 ```
 
 更新时间：2020-03-21
@@ -114,10 +152,23 @@ nacos/nacos-server
 
 第二种创建oracle容器的方法(已经连接成功)：
 ~ % docker login
-~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500  -v /Users/ligang/devtools/docker/oracle/data:/ORCL store/oracle/database-enterprise:12.2.0.1
+~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500 -v /Users/ligang/devtools/docker/oracle/data:/ORCL store/oracle/database-enterprise:12.2.0.1
 
+# 进入容器
 ~ % docker exec -it dev-oracle bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
-~ % sqlplus sys/Oradoc_db1@ORCLCDB as sysdba
+# ~ % sqlplus sys/Oradoc_db1@ORCLCDB as sysdba
+
+# 连接数据库
+~ % conn / as sysdba;
+
+# test
+/home/oracle/data/store_platform
+create tablespace store_platform \
+datafile '/home/oracle/data/store_platform/store_platform.dbf \
+size 200M autoextend on next 50M;    
+
+# delete tablespace
+SQL> drop tablespace store_platform including contents and datafiles
 
 oracle 默认密码： Oradoc_db1
 ```
@@ -160,8 +211,10 @@ $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/my
 $ docker run --name dev-mysql-5nd -v /Users/ligang/devtools/docker/mysql_5nd:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql:5.7.28 --lower_case_table_names=1
 
 # 第三种（设置字符集为utf8mb4）
+# 1
 $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
+# 2 配置文件
+$ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql/data:/var/lib/mysql -v /Users/ligang/devtools/docker/mysql/custom:/etc/mysql/conf.d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0.20 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
 -p 3306:3306->把容器的mysql端口3306映射到宿主机的3306端口，这样想访问mysql就可以直接访问宿主机的3306端口。
@@ -174,9 +227,16 @@ $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/my
 #### Docker 运行 redis：
 
 ```
+# 创建redis容器，并设置密码
 $ docker run -v /Users/ligang/devtools/docker/redis/data:/data  -p 6379:6379 --name dev-redis -d redis:latest redis-server --appendonly yes --requirepass "123456"
 
 $ docker exec -it finance-redis redis-cli -h 192.168.74.128 -p 6379
+
+# 进入redis容器，并且启动redis-cli
+～% docker exec -it instance_name redis-cli
+
+# 连接设置了密码的redis-server
+127.0.0.1:6379> auth password
 ```
 
 更新时间：2019-03-21
