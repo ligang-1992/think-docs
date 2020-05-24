@@ -228,9 +228,12 @@ $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql/data:/var/l
 
 ```
 # 创建redis容器，并设置密码
-$ docker run -v /Users/ligang/devtools/docker/redis/data:/data  -p 6379:6379 --name dev-redis -d redis:latest redis-server --appendonly yes --requirepass "123456"
+~% docker run --name dev-redis -d -p 6379:6379 -v /Users/ligang/devtools/docker/redis/data:/data redis:latest redis-server --appendonly yes --requirepass "123456"
 
-$ docker exec -it finance-redis redis-cli -h 192.168.74.128 -p 6379
+# 创建redis容器，并挂载配置文件
+~% docker run --name dev-redis -d -p 6379:6379 -v /Users/ligang/devtools/docker/redis/data:/data -v /Users/ligang/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:latest redis-server --requirepass "123456"
+
+$ docker exec -it dev-redis redis-cli -h 192.168.74.128 -p 6379
 
 # 进入redis容器，并且启动redis-cli
 ～% docker exec -it instance_name redis-cli
