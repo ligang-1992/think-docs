@@ -158,17 +158,51 @@ nacos/nacos-server:1.2.1
 ~ % docker exec -it dev-oracle bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
 # ~ % sqlplus sys/Oradoc_db1@ORCLCDB as sysdba
 
-# 连接数据库
-~ % conn / as sysdba;
+# 以root权限进入容器
+~% docker exec -it --user root dev-oracle /bin/bash
 
-# test
-/home/oracle/data/store_platform
-create tablespace store_platform \
-datafile '/home/oracle/data/store_platform/store_platform.dbf \
-size 200M autoextend on next 50M;    
+# 创建表空间存放路径
+[root@a3b2f1adcd02 /]# mkdir -p /home/oracle/data/retail
+# 给oracle用户赋权，以便创建表空间文件
+[root@a3b2f1adcd02 /]# chown -R oracle:oinstall /home/oracle/data/retail/
+
+# 配置环境
+export ORACLE_HOME=/home/oracle/app/oracle/product/12.2.0.1/dbhome_2
+export ORACLE_SID=ORCLCDB
+export PATH=$ORACLE_HOME/bin:$PATH
+
+# 软件连接
+[root@a3b2f1adcd02 /]#  ln -s $ORACLE_HOME/bin/sqlplus /usr/bin
+
+# 连接数据库
+SQL> conn / as sysdba;
+# 修改用户密码
+SQL> alter user system identified by 123456;
+SQL> alter user sys identified by 123456;
+SQL> ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+
+# 查看所有表空间
+SQL> select tablespace_name,status,contents from user_tablespaces; 
+
+# 创建表空间
+SQL> create tablespace retail datafile '/home/oracle/data/retail/retail.dbf' size 200M autoextend on next 50M;
+
+SQL> create tablespace retail datafile '/home/oracle/data/retail/retail.dbf' size 10M autoextend on maxsize 1G;
+
+# 在表空间上创建用户
+# 第一种创建用户的方法
+SQL> create user retail identified by retail default tablespace retail;
+# 第二种创建用户的方法
+SQL> create user c##retail identified by 123456 default tablespace retail;
+
+# 修改密码
+SQL> alter user retail identified by 123456;
+
+# 给新建的用户赋权
+SQL> grant connect,resource,dba to test;
 
 # delete tablespace
-SQL> drop tablespace store_platform including contents and datafiles
+SQL> drop tablespace RETAIL including contents and datafiles
 
 oracle 默认密码： Oradoc_db1
 ```
@@ -237,6 +271,9 @@ $ docker exec -it dev-redis redis-cli -h 192.168.74.128 -p 6379
 
 # 进入redis容器，并且启动redis-cli
 ～% docker exec -it instance_name redis-cli
+
+# 进入redis容器
+～% docker exec -it instance_name /bin/sh
 
 # 连接设置了密码的redis-server
 127.0.0.1:6379> auth password
