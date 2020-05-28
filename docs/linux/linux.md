@@ -4,19 +4,19 @@
 
 ###### 0.当前
 
-```
+```shell
 # uname -sr Linux 3.10.0-123.20.1.el7.x86_64
 ```
 
 ###### 1.搜索查询
 
-```
+```shell
 # rpm -q kernel kernel-3.10.0-123.el7.x86_64 kernel-3.10.0-123.20.1.el7.x86_64 kernel-devel-3.10.0-123.el7.x86_64
 ```
 
 ###### 2.删除
 
-```
+```shell
 倾向于 
 # yum remove kernel-3.10.0-123.el7.x86_64 kernel-devel-3.10.0-123.el7.x86_64 
 或者 
@@ -25,19 +25,19 @@
 
 ###### 3.定量
 
-```
+```shell
 # vi /etc/yum.conf  修改该项值 installonly_limit=5
 ```
 
 ###### 4.重启
 
-```
+```shell
 # reboot
 ```
 
 ###### 5.查看
 
-```
+```shell
 # rpm -qa|grep kernel*
 ```
 
@@ -47,7 +47,7 @@
 
 ##### Linux 设置别名，快捷命令
 
-```
+```shell
 # vi ~/.bashrc alias 快捷名='程序路径' 
 ```
 
@@ -59,7 +59,7 @@
 
 下载 Microsoft SQL Server 2017 Red Hat 存储库配置文件：
 
-```
+```shell
 # sudo curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/7/mssql-server-2017.repo 
 ```
 
@@ -69,13 +69,13 @@
 
 ##### centos 重启网卡：
 
-```
+```shell
 # service network restart 
 ```
 
 ##### centos 网络错误：
 
-```
+```shell
 # vi /etc/resolv.conf 输入以下内容： #主DNS nameserver 8.8.8.8 #备DNS nameserver 8.8.4.4 
 ```
 
@@ -87,13 +87,13 @@
 
 ###### 1、安装编译环境：
 
-```
+```shell
 # yum install gcc-c++ 
 ```
 
 ###### 2、下载redis并解压：
 
-```
+```shell
 # tar -zxvf redis... 
 # cd redis...
 
@@ -103,7 +103,7 @@
 
 ###### 3、安装到目录：
 
-```
+```shell
 # make PREFIX=/usr/local/redis install 
 
 # 把配置文件复制到安装目录：
@@ -112,7 +112,7 @@
 
 ###### 4、启动和关闭 redis 服务：
 
-```
+```shell
 # ./bin/redis-server 
 
 # 查看redis 是否运行命令：
@@ -129,7 +129,7 @@ Centos升级到7之后，内置的防火墙已经从iptables变成了firewalld�
 
 ###### 1.打开/关闭/重启防火墙
 
-```
+```shell
 # 开启防火墙(重启后永久生效)：
 # chkconfig iptables on 
 
@@ -148,13 +148,13 @@ Centos升级到7之后，内置的防火墙已经从iptables变成了firewalld�
 
 ###### 2.查看打开的端口
 
-```
+```shell
 # /etc/init.d/iptables status 
 ```
 
 ###### 3.打开某个端口(以8080为例)
 
-```
+```shell
 # 1.开启端口
 # iptables -A INPUT -p tcp --dport 8080 -j ACCEPT  
 
@@ -164,7 +164,7 @@ Centos升级到7之后，内置的防火墙已经从iptables变成了firewalld�
 
 ###### 4.打开49152~65534之间的端口
 
-```
+```shell
 # iptables -A INPUT -p tcp --dport 49152:65534 -j ACCEPT   
 ```
 
@@ -172,7 +172,7 @@ Centos升级到7之后，内置的防火墙已经从iptables变成了firewalld�
 
 ###### 5.其他打开方式
 
-```
+```shell
 # 我们还可以通过修改/etc/sysconfig/iptables文件的方式开启端口，如下
 # vi /etc/sysconfig/iptables 
 
@@ -195,7 +195,7 @@ Centos7默认安装了firewalld，如果没有安装的话，可以使用 yum in
 
 ###### 1.启动防火墙
 
-```
+```shell
 # systemctl start firewalld  
 ```
 
@@ -505,14 +505,14 @@ vim取消搜索高亮——
 
 ###### 第三步：
 
-```
+```shell
 # 编辑ip配置文件
 # vi /etc/sysconfig/network-scripts/ifcfg-ens33 
 ```
 
 ##### 第四步：
 
-```
+```shell
 # 重启ip服务：
 # sudo service network restart 
 ```
@@ -530,7 +530,7 @@ Linux命令中并没有这几项，而是存在于vi和vim等编辑器中，详�
 
 Linux CentOS安装：
 
-```
+```shell
 # 分区：
 /boot 200m
 swap 4g
@@ -558,7 +558,7 @@ swap 4g
 
 ###### 2、deepin 桌面环境安装
 
-```
+```shell
 # pacman -S deepin  
 # pacman -S deepin-extra  
 # pacman -S networkmanager  

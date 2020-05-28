@@ -1,69 +1,72 @@
 ### yarn常用命令
 
-```
+```shell
 # 安装yarn
-npm install -g yarn
+~ % npm install -g yarn
 
 # 安装成功后，查看版本号：
-yarn --version
+~ % yarn --version
 
 # 创建文件夹 yarn
-md yarn
+~ % md yarn
 
 # 进入yarn文件夹
-cd yarn
+~ % cd yarn
 
 # 初始化项目
-yarn init // 同npm init，执行输入信息后，会生成package.json文件
+# 同npm init，执行输入信息后，会生成package.json文件
+~ % yarn init
 
 # yarn的配置项：
-yarn config list // 显示所有配置项
-yarn config get <key> //显示某配置项
-yarn config delete <key> //删除某配置项
-yarn config set <key> <value> [-g|--global] //设置配置项
+~ % yarn config list														# // 显示所有配置项
+~ % yarn config get <key>												# //显示某配置项
+~ % yarn config delete <key>										# //删除某配置项
+~ % yarn config set <key> <value> [-g|--global]	# 设置配置项
 
 # 安装包：
-yarn install //安装package.json里所有包，并将包及它的所有依赖项保存进yarn.lock
-yarn install --flat //安装一个包的单一版本
-yarn install --force //强制重新下载所有包
-yarn install --production //只安装dependencies里的包
-yarn install --no-lockfile //不读取或生成yarn.lock
-yarn install --pure-lockfile //不生成yarn.lock
+~ % yarn install									# 安装package.json里所有包，并将包及它的所有依赖项保存进yarn.lock
+~ % yarn install --flat						# 安装一个包的单一版本
+~ % yarn install --force					# 强制重新下载所有包
+~ % yarn install --production 		# 只安装dependencies里的包
+~ % yarn install --no-lockfile 		# 不读取或生成yarn.lock
+~ % yarn install --pure-lockfile	# 不生成yarn.lock
 
-添加包（会更新package.json和yarn.lock）：
-yarn add [package] // 在当前的项目中添加一个依赖包，会自动更新到package.json和yarn.lock文件中
-yarn add [package]@[version] // 安装指定版本，这里指的是主要版本，如果需要精确到小版本，使用-E参数
-yarn add [package]@[tag] // 安装某个tag（比如beta,next或者latest）
+# 添加包（会更新package.json和yarn.lock）：
+~ % yarn add [package] // 在当前的项目中添加一个依赖包，会自动更新到package.json和yarn.lock文件中
+~ % yarn add [package]@[version] // 安装指定版本，这里指的是主要版本，如果需要精确到小版本，使用-E参数
+~ % yarn add [package]@[tag] // 安装某个tag（比如beta,next或者latest）
 //不指定依赖类型默认安装到dependencies里，你也可以指定依赖类型：
 
-yarn add --dev/-D // 加到 devDependencies
-yarn add --peer/-P // 加到 peerDependencies
-yarn add --optional/-O // 加到 optionalDependencies
+~ % yarn add --dev/-D // 加到 devDependencies
+~ % yarn add --peer/-P // 加到 peerDependencies
+~ % yarn add --optional/-O // 加到 optionalDependencies
 
-//默认安装包的主要版本里的最新版本，下面两个命令可以指定版本：
-yarn add --exact/-E // 安装包的精确版本。例如yarn add foo@1.2.3会接受1.9.1版，但是yarn add foo@1.2.3 --exact只会接受1.2.3版
-yarn add --tilde/-T // 安装包的次要版本里的最新版。例如yarn add foo@1.2.3 --tilde会接受1.2.9，但不接受1.3.0
+# 默认安装包的主要版本里的最新版本，下面两个命令可以指定版本：
+# 安装包的精确版本。例如yarn add foo@1.2.3会接受1.9.1版，但是yarn add foo@1.2.3 --exact只会接受1.2.3版
+~ % yarn add --exact/-E
+# 安装包的次要版本里的最新版。例如yarn add foo@1.2.3 --tilde会接受1.2.9，但不接受1.3.0
+~ % yarn add --tilde/-T
 
 # 发布包
-yarn publish
+~ % yarn publish
 
 # 移除一个包
-yarn remove <packageName>：移除一个包，会自动更新package.json和yarn.lock
+~ % yarn remove <packageName>	# 移除一个包，会自动更新package.json和yarn.lock
 
 # 更新一个依赖
-yarn upgrade 用于更新包到基于规范范围的最新版本
+~ % yarn upgrade 							# 用于更新包到基于规范范围的最新版本
 
 # 运行脚本
-yarn run 用来执行在 package.json 中 scripts 属性下定义的脚本
+~ % yarn run									# 用来执行在 package.json 中 scripts 属性下定义的脚本
 
 # 显示某个包的信息
-yarn info <packageName> 可以用来查看某个模块的最新版本信息
+~ % yarn info <packageName> 	# 可以用来查看某个模块的最新版本信息
 
 # 缓存
-yarn cache
-yarn cache list # 列出已缓存的每个包
-yarn cache dir # 返回 全局缓存位置
-yarn cache clean # 清除缓存
+~ % yarn cache
+~ % yarn cache list						# 列出已缓存的每个包
+~ % yarn cache dir						# 返回 全局缓存位置
+~ % yarn cache clean					# 清除缓存
 ————————————————
 版权声明：本文为CSDN博主「yw00yw」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/yw00yw/java/article/details/81354533
@@ -73,7 +76,7 @@ yarn cache clean # 清除缓存
 
 ### 重启网卡
 
-```
+```shell
 # 停止
 ～% sudo ifconfig en0 down
 # 启动
@@ -84,28 +87,28 @@ yarn cache clean # 清除缓存
 
 ### Docsify 教程
 
-```
-1、初始化文档目录
-～% docsify init ./think-docs
+```shell
+# 1、初始化文档目录
+~ % docsify init ./think-docs
 # think-docs 为文件夹名称
 
-2、启动项目
-～% docsify serve ./think-docs
+# 2、启动项目
+~ % docsify serve ./think-docs
 ```
 
-```
-npm安装模块
-【npm install xxx】利用 npm 安装xxx模块到当前命令行所在目录；
-【npm install -g xxx】利用npm安装全局模块xxx；
+```shell
+# npm安装模块
+~ % npm install xxx							# 利用 npm 安装xxx模块到当前命令行所在目录；
+~ % npm install -g xxx					# 利用npm安装全局模块xxx；
 
-本地安装时将模块写入package.json中：
-【npm install xxx】安装但不写入package.json；
-【npm install xxx --save】 安装并写入package.json的"dependencies"中；
-【npm install xxx --save-dev】安装并写入package.json的"devDependencies"中。
+# 本地安装时将模块写入package.json中：
+~ % npm install xxx							# 安装但不写入package.json；
+~ % npm install xxx --save			# 安装并写入package.json的"dependencies"中；
+~ % npm install xxx --save-dev	# 安装并写入package.json的"devDependencies"中。
 
-npm 删除模块
-【npm uninstall xxx】删除xxx模块；
-【npm uninstall -g xxx】删除全局模块xxx；
+# npm 删除模块
+~ % npm uninstall xxx						# 删除xxx模块；
+~ % npm uninstall -g xxx				# 删除全局模块xxx；
 ```
 
 更新时间：2020-04-12
@@ -114,32 +117,32 @@ npm 删除模块
 
 ### Mac 软件包损坏解决办法
 
-```
-sudo xattr -r -d com.apple.quarantine
-注意quarantine后面要加一个空格，然后将应用程序里面的app拖拽到这段命令的后面，然后回车输入密码即可，务必不要忘记了quarantine后面那个空格。
+```shell
+~ % sudo xattr -r -d com.apple.quarantine
+# 注意quarantine后面要加一个空格，然后将应用程序里面的app拖拽到这段命令的后面，然后回车输入密码即可，务必不要忘记了quarantine后面那个空格。
 ```
 
-```
-xcode-select --install
+```shell
+~ % xcode-select --install
 ```
 
 更新时间：2020-04-12
 
 ##### 查看IP地址
 
-```
-第一种方法：
-～% ifconfig
+```shell
+# 方法1
+~ % ifconfig
 
-第二种方法：
-～% ifconfig | grep "inet"
+# 方法2
+~ % ifconfig | grep "inet"
 ```
 
 更新时间：2020-04-12
 
 ### 安装 vue
 
-```
+```shell
 关于旧版本
 
 Vue CLI 的包名称由 vue-cli 改成了 @vue/cli。 如果你已经全局安装了旧版本的 vue-cli (1.x 或 2.x)，你需要先通过 
