@@ -1,4 +1,4 @@
-####容器操作命令
+###容器操作命令
 
 ##### 帮助命令
 
@@ -10,7 +10,7 @@
 
 ##### 镜像命令
 
-###### 1、查看镜像
+###### 查看镜像
 
 ```shell
 ~ % docker images																	# 显示docker所有镜像
@@ -31,7 +31,7 @@ Options:
   -q, --quiet           Only show numeric IDs
 ```
 
-###### 2、搜索镜像
+###### 搜索镜像
 
 ```shell
 ~ % docker search [OPTIONS] TERM										# 搜索docker的镜像
@@ -43,7 +43,7 @@ Options:
       --no-trunc        Don't truncate output
 ```
 
-###### 3、拉取镜像命令
+###### 拉取镜像命令
 
 ```shell
 # docker pull [OPTIONS] NAME[:TAG|@DIGEST]
@@ -55,7 +55,7 @@ Options:
   -q, --quiet                   Suppress verbose output
 ```
 
-###### 4、删除镜像
+###### 删除镜像
 
 ```shell
 # docker rmi [OPTIONS] IMAGE [IMAGE...]
@@ -68,7 +68,7 @@ Options:
 
 ##### 容器命令
 
-###### 1、查看容器命令
+###### 查看容器命令
 
 ```shell
 ~ % docker ps																			# 查看容器
@@ -84,7 +84,7 @@ Options:
   -s, --size            Display total file sizes
 ```
 
-###### 2、创建容器
+###### 创建容器
 
 ```shell
 # docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
@@ -186,7 +186,7 @@ Options:
   -w, --workdir string                 Working directory inside the container
 ```
 
-###### 3、删除容器
+###### 删除容器
 
 ```shell
 # docker rm [OPTIONS] CONTAINER [CONTAINER...]
@@ -199,7 +199,7 @@ Options:
   -v, --volumes   Remove anonymous volumes associated with the container
 ```
 
-###### 4、启动容器
+###### 启动容器
 
 ```shell
 ~ % docker start [container id]										# 启动容器
@@ -216,13 +216,23 @@ Options:
 
 ```
 
-###### 5、进入容器
+##### 其他常用命令
 
 ```shell
 # 以root权限进入容器
+# 方法一
 ~ % docker exec -it --user root dev-oracle /bin/bash
+# 方法二
+~ % docker attach [container id]
+
+# 拷贝docker容器中的文件
+# docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+# docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+~ % docker cp [container id]/[filepath] /[target path]
+
 # 创建文件
 ~ % mkdir xxx.xx
+
 ```
 
 
@@ -240,11 +250,11 @@ Options:
 ###### 步骤二：创建容器
 
 ```shell
-# 方法1
-~ % docker run -d -p 9870:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro -v /Users/ligang/devtools/docker/nginx/content:/usr/share/nginx/html:ro -v /Users/ligang/devtools/docker/nginx/cache:/var/cache/nginx -v /Users/ligang/devtools/docker/nginx/logs:/var/log/nginx nginx:1.18.0
+# 方法一
+~ % docker run -d -p 9870:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro nginx:1.18.0
 
-# 方法2
-~ % docker run -d -p 8081:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro -v /Users/ligang/devtools/docker/nginx/content:/usr/share/nginx/html:ro nginx:1.18.0
+# 方法二
+~ % docker run -d -p 9870:80 --name dev-nginx -v /Users/ligang/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro -v /Users/ligang/devtools/docker/nginx/content:/usr/share/nginx/html:ro -v /Users/ligang/devtools/docker/nginx/cache:/var/cache/nginx -v /Users/ligang/devtools/docker/nginx/logs:/var/log/nginx nginx:1.18.0
 ```
 
 
@@ -389,7 +399,7 @@ nacos/nacos-server:1.2.1
 ~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:latest
 
 # 有管理界面
-~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:3.8.3-management
+~ % docker run -d --hostname my-rabbit --name dev-rabbit -p 5672:5672 -p 15672:15672 -v /Users/ligang/devtools/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=123456 rabbitmq:3.8.4-management
 ```
 
 更新时间：2020-03-21
@@ -409,7 +419,8 @@ nacos/nacos-server:1.2.1
 
 ```shell
 # 第一种创建oracle容器的方法：
-~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500  -v /Users/ligang/devtools/docker/oracle/data:/ORCL --env-file /Users/ligang/devtools/docker/oracle/conf/ora.conf store/oracle/database-enterprise:12.2.0.1
+~ % docker login
+~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500  -v /Users/ligang/devtools/docker/oracle/data:/ORCL --env-file /Users/ligang/devtools/docker/oracle/env/env.dat store/oracle/database-enterprise:12.2.0.1
 
 # 第二种创建oracle容器的方法(已经连接成功)：
 ~ % docker login
@@ -461,12 +472,14 @@ SQL> alter session set container=cdb$root;
 SQL> alter session set container=ORCLPDB1;
 
 # 创建表空间
+SQL> create tablespace retail datafile '/u02/app/oracle/oradata/ORCL/temp02.dbf'  size 200M autoextend on next 50M;
 SQL> create tablespace retail datafile '/home/oracle/data/cdb/retail.dbf' size 200M autoextend on next 50M;
 SQL> create tablespace retail datafile '/home/oracle/data/pdb/retail.dbf' size 200M autoextend on next 50M;
 
 SQL> create tablespace retail datafile '/home/oracle/data/retail/retail.dbf' size 10M autoextend on maxsize 1G;
 
 # 在表空间上创建用户
+create user c##retail identified by 123456 default tablespace RETAIL temporary tablespace TEMP;
 # 第一种创建用户的方法
 SQL> create user retail identified by 123456 default tablespace retail;
 # 第二种创建用户的方法 cdb下
@@ -483,6 +496,36 @@ SQL> grant connect,resource,dba to C##RETAIL;
 
 # delete tablespace
 SQL> drop tablespace retail including contents and datafiles
+
+-- 1 查看系统中的容器：
+--    select con_id,dbid,NAME,OPEN_MODE from v$pdbs;
+-- 2 先打开pdb容器：
+--    alter pluggable database ORCLPDB1 open;
+-- 3再查看容器，pdb应该是READ，WRITE：
+--    select con_id,dbid,NAME,OPEN_MODE from v$pdbs;
+-- 4切换容器：
+--    alter session set container=ORCLPDB1;
+-- 5查看当前使用的容器
+--    select sys_context ('USERENV', 'CON_NAME') from dual;
+-- create tablespace retail 
+-- datafile '/u02/app/oracle/oradata/ORCL/retail.dbf' 
+-- size 50M 
+-- autoextend on next 50m maxsize 2048m 
+-- extent management local;
+-- 
+-- create temporary tablespace retail_temp
+-- tempfile '/u02/app/oracle/oradata/ORCL/retail_temp.dbf'
+-- size 32m
+-- autoextend on next 32m maxsize 1024m
+-- extent management local;
+
+create user henfengyu identified by 123456 default tablespace retail
+temporary tablespace retail_temp;
+
+grant connect,resource to henfengyu;
+grant dba to henfengyu;
+
+alter user henfengyu account unlock identified by 123456;
 ```
 
 更新时间：2020-03-21
@@ -493,7 +536,7 @@ SQL> drop tablespace retail including contents and datafiles
 
 ###### 步骤一：拉取镜像
 
-```
+```shell
 ~ % docker pull mysql
 ```
 
@@ -501,21 +544,23 @@ SQL> drop tablespace retail including contents and datafiles
 
 ```shell
 # 第一种
-$ docker run -d -v /Users/ligang/devtools/docker/mysql/:/var/lib/mysql -p 3306:3306 --name dev-mysql -e MYSQL_ROOT_PASSWORD=123456 docker.io/mysql
+~ % docker run -d -v /Users/ligang/devtools/docker/mysql/:/var/lib/mysql -p 3306:3306 --name dev-mysql -e MYSQL_ROOT_PASSWORD=123456 docker.io/mysql
 
 # 第二种（查询忽略表名大小写）
-$ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql --lower_case_table_names=1
+#~ % docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/mysql -p 3306:3306 -e #MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql --lower_case_table_names=1
+~ % docker run --name dev-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d -v /Users/ligang/devtools/docker/mysql/data:/var/lib/mysql mysql:8.0.20 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1
 
-$ docker run --name dev-mysql-5nd -v /Users/ligang/devtools/docker/mysql_5nd:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql:5.7.28 --lower_case_table_names=1
+~ % docker run --name dev-mysql-5nd -v /Users/ligang/devtools/docker/mysql_5nd:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql:5.7.28 --lower_case_table_names=1
 
 # 第三种（设置字符集为utf8mb4）
 # 1
-$ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+~ % docker run -p 3306:3306 --name dev-mysql -v /Users/ligang/devtools/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker.io/mysql --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 # 2 配置文件
-$ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql/data:/var/lib/mysql -v /Users/ligang/devtools/docker/mysql/custom:/etc/mysql/conf.d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0.20 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+~ % docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql/data:/var/lib/mysql -v /Users/ligang/devtools/docker/mysql/custom:/etc/mysql/conf.d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0.20 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
 > -p 3306:3306->把容器的mysql端口3306映射到宿主机的3306端口，这样想访问mysql就可以直接访问宿主机的3306端口。
+>
 > -v /opt/data/mysql:/var/lib/mysql->把宿主机/opt/data/mysql/目录映射到容器的/var/lib/mysql目录
 
 更新时间：2019-03-21
@@ -537,7 +582,7 @@ $ docker run --name dev-mysql -v /Users/ligang/devtools/docker/mysql/data:/var/l
 ~ % docker run --name dev-redis -d -p 6379:6379 -v /Users/ligang/devtools/docker/redis/data:/data redis:latest redis-server --appendonly yes --requirepass "123456"
 
 # 创建redis容器，并挂载配置文件
-~ % docker run --name dev-redis -d -p 6379:6379 -v /Users/ligang/devtools/docker/redis/data:/data -v /Users/ligang/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:latest redis-server --requirepass "123456"
+~ % docker run --name dev-redis -d -p 6379:6379 -v /Users/ligang/devtools/docker/redis/data:/data -v /Users/ligang/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:6.0.5 redis-server --requirepass "123456"
 
 # 进入redis容器，并且启动redis-cli
 # 方法1

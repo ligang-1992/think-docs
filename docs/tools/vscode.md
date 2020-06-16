@@ -175,3 +175,60 @@ Command + Home 滚动到顶部
 Command + End 滚动到底部
 ```
 
+#### 个人设置
+
+```json
+{
+  "go.formatTool": "goimports", // or "gofmt", or "goreturns", 这三种都是格式化工具
+  "go.useLanguageServer": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.enabled": true,
+  "terminal.external.osxExec": "iTerm.app",
+  "go.docsTool": "gogetdoc",
+  "go.testFlags": ["-v", "-count=1"],
+  "go.buildTags": "",
+  "go.buildFlags": [],
+  "go.lintFlags": [],
+  "go.vetFlags": [],
+  "go.coverOnSave": false,
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.gocodeAutoBuild": false,
+  "go.goroot": "/usr/local/go",
+  "go.gopath": "/Users/ligang/go",
+  "go.inferGopath": true,
+  "go.autocompleteUnimportedPackages": true,
+  "go.gocodePackageLookupMode": "go",
+  // "go.formatOnSave": true,
+  "go.gotoSymbol.includeImports": true,
+  "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+  "window.zoomLevel": 0,
+  "debug.console.fontSize": 16,
+  "debug.console.lineHeight": 30,
+  "workbench.iconTheme": "file-icons",
+  "editor.fontSize": 16,
+  "files.autoSave": "afterDelay",
+  "workbench.startupEditor": "newUntitledFile",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDelete": false,
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "leetcode.endpoint": "leetcode-cn",
+  "leetcode.workspaceFolder": "/Users/ligang/program/LeetCode",
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "yapf",
+  "python.linting.flake8Args": ["--max-line-length=248"],
+  "python.linting.pylintEnabled": false
+}
+```
+
