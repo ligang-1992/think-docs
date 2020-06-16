@@ -1,27 +1,35 @@
-#### 1、安装go
+#### 安装Golang
 
 ```
 官网下载安装包，默认安装就好
 ```
 
-#### 2、配置环境变量
+#### 配置开发环境
 
+```shell
+# 设置GOPATH路径（GOPATH路径是我们的工作区）
+~ % go env -w GOPATH=我们自己的工作区路径
+
+# 配置代理
+# 步骤一：打开GoMOD
+~ % go env -w GO111MODULE=on
+# 步骤二：配置代理
+~ % go env -w GOPROXY=https://goproxy.cn,direct
 ```
-1、设置GOPATH路径（GOPATH路径是我们的工作区）
-～ % go env -w GOPATH=我们自己的工作区路径
 
-2、打开GoMOD，再配置代理
-～ % go env -w GO111MODULE=on
-～ % go env -w GOPROXY=https://goproxy.cn,direct
-```
-
-#### 3、在VSCode中安装Go插件
+#### 在VSCode中安装Go插件
 
 ```
 在插件市场搜索go，并安装
 ```
 
-#### 4、在我们的GOPATH/src目录下，创建一个hello/hello.go文件，并且用VSCode打开
+#### VSCode智能提示修复
+
+```shell
+~ % go get -u -v github.com/mdempsky/gocode
+```
+
+#### 在我们的GOPATH/src目录下，创建一个hello/hello.go文件，并且用VSCode打开
 
 ```
 （​GOPATH是指我们刚刚配置的环境变量。比如上面配置的环境变量位置为/Users/naonao/go，即GOPATH就是指/Users/naonao/go这个路径。那么​GOPATH/src就是指/Users/naonao/go/src目录）
@@ -29,20 +37,20 @@
 在安装了Go插件后的VsCode，现在打开go文件后，会自动安装我们自己的必要的环境依赖
 ```
 
-#### 5、Go Modules的使用
+#### Go Modules的使用
 
-```
+```shell
 进入我们的hello文件夹，并且执行go mod init即可
-～ % cd $GOPATH/src/hello
-～ % go mod init
+~ % cd $GOPATH/src/hello
+~ % go mod init
 
-go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全部安装并记录下来，多的包就删掉，少了的就自动补上
+# go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全部安装并记录下来，多的包就删掉，少了的就自动补上
 ```
 
-#### 6、VSCode的Lunch.json配置以及Setting.json配置
+#### VSCode开发环境配置
 
-```
-1、Lunch.json配置
+```json
+// 1、Lunch.json配置
 {
     // 使用 IntelliSense 了解相关属性。 
     // 悬停以查看现有属性的描述。
@@ -72,7 +80,7 @@ go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全
     ]
 }
 
-2、Setting.json配置
+// 2、Setting.json配置
 {
     "go.useLanguageServer": true,
     "editor.minimap.renderCharacters": false,
@@ -101,10 +109,16 @@ go mod tidy，通俗来说就是将当前的库源码文件所依赖的包，全
 
 ```
 
-#### 7、编译成可执行文件
+#### 编译成可执行文件
 
-```
+```shell
 # 进入项目目录下
-～% go build -o application_name
+~ % go build -o application_name
+```
+
+#### 安装gin框架
+
+```shell
+~ % go get -u github.com/gin-gonic/gin
 ```
 
