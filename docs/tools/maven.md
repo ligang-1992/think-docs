@@ -1,6 +1,6 @@
-#### oracle.jar 无法解析
+#### oracle jar包无法解析
 
-##### 1、po m.xml 配置仓库
+##### 1、pom.xm 配置本地仓库
 
 ```xml
 		<repositories>
@@ -39,9 +39,9 @@
     </pluginRepositories>
 ```
 
-##### 2、本地仓库安装oracle jar包
+##### 2、maven 本地仓库安装oracle jar包
 
-```
-
+```shell
+~ % mvn install:install-file -DgroupId=com.Oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -D file=ojdbc14-10.2.0.4.0.jar
 ```
 

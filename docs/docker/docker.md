@@ -1,4 +1,4 @@
-###容器操作命令
+####容器操作命令
 
 ##### 帮助命令
 
@@ -239,7 +239,9 @@ Options:
 
 #### 软件安装命令
 
-##### Nginx
+#### Nginx
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -260,6 +262,8 @@ Options:
 
 
 ##### ELASTIC (ELK) STACK：Elasticsearch
+
+#### 安装
 
 ###### 步骤一：拉取镜像
 ```shell
@@ -288,7 +292,9 @@ Options:
 
 
 
-##### ELASTIC (ELK) STACK：Kibana
+#### ELASTIC (ELK) STACK：Kibana
+
+#### 安装
 
 ```shell
 # 方法一 官方
@@ -300,7 +306,9 @@ Options:
 
 
 
-##### Apache RocketMQ
+#### Apache RocketMQ
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -322,7 +330,9 @@ Options:
 
 
 
-##### Spring Cloud Alibaba
+#### Spring Cloud Alibaba
+
+##### 安装
 
 ###### 步骤一：拉取容器
 
@@ -356,7 +366,9 @@ nacos/nacos-server:1.2.1
 
 
 
-##### PostgreSQL
+#### PostgreSQL
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -380,7 +392,9 @@ nacos/nacos-server:1.2.1
 
 
 
-##### RabbitMQ
+#### RabbitMQ
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -406,7 +420,9 @@ nacos/nacos-server:1.2.1
 
 
 
-##### Oracle Database
+#### Oracle Database
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -532,7 +548,9 @@ alter user henfengyu account unlock identified by 123456;
 
 
 
-##### MySQL
+#### MySQL
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -567,7 +585,9 @@ alter user henfengyu account unlock identified by 123456;
 
 
 
-##### Redis
+#### Redis
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -590,18 +610,36 @@ alter user henfengyu account unlock identified by 123456;
 # 方法2
 ~ % docker exec -it [container name] or [container id] redis-cli
 
-# 进入redis容器
-~ % docker exec -it [container name] or [container id] /bin/sh
+
 
 # 连接设置了密码的redis-server
 127.0.0.1:6379> auth password
 ```
 
-更新时间：2019-03-21
+##### 测试
 
+###### 测试命令
 
+```shell
+# 测试redis单机并发量
+# 1、进入redis容器
+~ % docker exec -it [container name] or [container id] /bin/bash
+# 2、进入"/usr/local/bin"目录下
+root@75e2c66b02df: cd /usr/local/bin
+# 3、运行测试命令
+# -h: 指定服务器主机名，-p: 端口号，-c: 
+root@75e2c66b02df:/usr/local/bin# redis-benchmark  -h localhost -p 6379 -c 100 -n 10000
+```
 
-##### MongoDB
+【截图来自菜鸟教程】
+
+![image-20200619131714692](../../images/docker/image-20200619131714692.png)
+
+###### 
+
+#### MongoDB
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 
@@ -634,7 +672,9 @@ alter user henfengyu account unlock identified by 123456;
 
 
 
-##### Apache ZooKeeper
+#### Apache ZooKeeper
+
+##### 安装
 
 ###### 步骤一：拉取镜像
 

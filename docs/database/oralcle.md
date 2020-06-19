@@ -49,3 +49,9 @@ select 列名,sum(需要累加的列名) over(partition by 列名 order by 列�
 	2:显示有效小数位
 ```
 
+##### 查询数据库所有表明
+
+```sql
+select t.table_name, t.num_rows from user_tables t;
+```
+
