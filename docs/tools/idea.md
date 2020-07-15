@@ -1,3 +1,11 @@
+#### [IntelliJ IDEA添加过滤文件或目录](https://www.cnblogs.com/jeffen/p/6024839.html)
+
+```
+Editor -> File Types
+```
+
+![image-20200703145655769](../../images/tools/image-20200703145655769.png)
+
 #### IntelliJ IDEA忽略大小写提示
 
 ```

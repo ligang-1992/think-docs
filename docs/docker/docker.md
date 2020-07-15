@@ -631,9 +631,9 @@ root@75e2c66b02df: cd /usr/local/bin
 root@75e2c66b02df:/usr/local/bin# redis-benchmark  -h localhost -p 6379 -c 100 -n 10000
 ```
 
-【截图来自菜鸟教程】
-
 ![image-20200619131714692](../../images/docker/image-20200619131714692.png)
+
+######【截图来自菜鸟教程】
 
 ###### 
 
