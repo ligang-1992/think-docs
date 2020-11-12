@@ -347,5 +347,126 @@ Command + End 滚动到底部
         "editor.defaultFormatter": "vscode.json-language-features"
     },
 }
+
+
+{
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "editor.fontSize": 16,
+    // vscode默认启用了根据文件类型自动设置tabsize的选项
+    // "editor.detectIndentation": false,
+    "editor.suggestSelection": "first",
+    // #每次保存的时候将代码按eslint格式进行修复
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "files.exclude": {
+        ".idea": true,
+        ".github": true
+    },
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "editor.minimap.renderCharacters": false,
+    "terminal.external.osxExec": "iTerm.app",
+    "go.docsTool": "gogetdoc",
+    "go.testFlags": [
+        "-v",
+        "-count=1"
+    ],
+    "go.buildTags": "",
+    "go.buildFlags": [],
+    "go.lintFlags": [],
+    "go.vetFlags": [],
+    "go.coverOnSave": false,
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.gocodeAutoBuild": false,
+    "go.goroot": "/usr/local/go",
+    "go.gopath": "/Users/ligang/go",
+    "go.autocompleteUnimportedPackages": true,
+    "window.zoomLevel": 0,
+    "debug.console.fontSize": 16,
+    "debug.console.lineHeight": 30,
+    "workbench.iconTheme": "material-icon-theme",
+    "prettier.tabWidth": 2,
+    // prettier 设置强制单引号
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    // 针对[html]语言，配置替代编辑器设置
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        // "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // 针对[javascript]语言，配置替代编辑器设置
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "typescript.preferences.quoteStyle": "single",
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // 针对[vue]语言，配置替代编辑器设置
+    "[vue]": {
+        "editor.defaultFormatter": "octref.vetur",
+        "editor.tabSize": 2
+    },
+    "eslint.codeActionsOnSave.mode": "all",
+    "eslint.format.enable": true,
+    "eslint.validate": [
+        "javascript",
+        "vue",
+        "html"
+    ],
+    "eslint.options": {
+        "extensions": [
+            ".js",
+            ".vue",
+            ".ts",
+            ".tsx"
+        ]
+    },
+    // #这个按用户自身习惯选择
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    // #让vue中的js按编辑器自带的ts格式进行格式化
+    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            // vue 在语句结尾处加上分号,false是不加分号
+            "semi": false,
+            "singleQuote": true
+        },
+        "js-beautify-html": {
+            "wrap_line_length": 120,
+            // 设置 vue 格式化后标签属性不换行
+            // "wrap_attributes": "auto",
+            "end_with_newline": false
+        },
+        "prettyhtml": {
+            "printWidth": 100,
+            "singleQuote": false,
+            "wrapAttributes": false,
+            "sortAttributes": false
+        }
+    },
+    "workbench.colorTheme": "Visual Studio Dark",
+    "explorer.confirmDragAndDrop": false,
+    "hediet.vscode-drawio.local-storage": "eyIuZHJhd2lvLWNvbmZpZyI6IntcImxhbmd1YWdlXCI6XCJcIixcImN1c3RvbUZvbnRzXCI6W10sXCJsaWJyYXJpZXNcIjpcImdlbmVyYWxcIixcImN1c3RvbUxpYnJhcmllc1wiOltcIkwuc2NyYXRjaHBhZFwiXSxcInBsdWdpbnNcIjpbXSxcInJlY2VudENvbG9yc1wiOltdLFwiZm9ybWF0V2lkdGhcIjpcIjI0MFwiLFwiY3JlYXRlVGFyZ2V0XCI6ZmFsc2UsXCJwYWdlRm9ybWF0XCI6e1wieFwiOjAsXCJ5XCI6MCxcIndpZHRoXCI6ODI3LFwiaGVpZ2h0XCI6MTE2OX0sXCJzZWFyY2hcIjp0cnVlLFwic2hvd1N0YXJ0U2NyZWVuXCI6dHJ1ZSxcImdyaWRDb2xvclwiOlwiI2QwZDBkMFwiLFwiZGFya0dyaWRDb2xvclwiOlwiIzZlNmU2ZVwiLFwiYXV0b3NhdmVcIjp0cnVlLFwicmVzaXplSW1hZ2VzXCI6bnVsbCxcIm9wZW5Db3VudGVyXCI6MCxcInZlcnNpb25cIjoxOCxcInVuaXRcIjoxLFwiaXNSdWxlck9uXCI6ZmFsc2UsXCJ1aVwiOlwiXCJ9In0=",
+     
+    "workbench.startupEditor": "newUntitledFile",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "files.autoSave": "afterDelay",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "prettier.useTabs": true,
+}
 ```
 
