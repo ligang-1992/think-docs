@@ -1,4 +1,10 @@
-***\*Eureka instance 配置项:\****
+#### Spirng boot 与 Spring cloud 版本对应选择
+
+```
+https://start.spring.io/actuator/info
+```
+
+**\*\*Eureka instance 配置项:\*\***
 
 ```
 *#\****服务注册中心实例的主机名
@@ -25,7 +31,7 @@ eureka.instance.ip-address=
 
 eureka.instance.prefer-ip-address=false
 
- 
+
 
 ***\*#\****用于AWS平台自动扩展的与此实例关联的组名，
 
@@ -59,7 +65,7 @@ eureka.instance.namespace=eureka
 
 eureka.instance.metadata-map.test = test
 
- 
+
 
 ***\*#\****服务中心删除此服务实例的等待时间(秒为单位),时间间隔为最后一次服务中心接受到的心跳时间
 
@@ -77,7 +83,7 @@ eureka.instance.registry.default-open-for-traffic-count=1
 
 eureka.instance.registry.expected-number-of-renews-per-min=1
 
- 
+
 
 ***\*#\****该实例健康检查url,绝对路径
 
@@ -131,7 +137,7 @@ eureka.instance.status-page-url=
 
 eureka.instance.status-page-url-path=/status
 
- 
+
 
 ***\*Eureka client 配置\****
 
@@ -155,7 +161,7 @@ eureka.client.filter-only-up-instances=true
 
 eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
 
- 
+
 
 ***\*#\****client连接Eureka服务端后的空闲等待时间，默认为30 秒
 
@@ -209,7 +215,7 @@ eureka.client.instance-info-replication-interval-seconds=30
 
 eureka.client.registry-fetch-interval-seconds=30
 
- 
+
 
 ***\*#\**** 获取实例所在的地区。默认为us-east-1
 
@@ -271,7 +277,7 @@ eureka.client.should-enforce-registration-at-init=false
 
 eureka.client.should-unregister-on-shutdown=true
 
- 
+
 
 ***\*#\**** 获取eureka服务的代理主机，默认为null
 
@@ -289,7 +295,7 @@ eureka.client.proxy-port=
 
 eureka.client.proxy-user-name=
 
- 
+
 
 ***\*#\****属性解释器
 
@@ -307,7 +313,7 @@ eureka.client.decoder-name=
 
 eureka.client.encoder-name=
 
- 
+
 
 ***\*#\****是否使用DNS机制去获取服务列表，然后进行通信。默认为false
 
@@ -325,9 +331,9 @@ eureka.client.eureka-server-port=
 
 eureka.client.eureka-server-u-r-l-context=
 
- 
 
- 
+
+
 
 ***\*Eureka Server配置\****
 
@@ -405,7 +411,7 @@ eureka.server.sync-when-timestamp-differs=true
 
 eureka.server.use-read-only-response-cache=true
 
- 
+
 
 ***\*#\******###############server 自定义实现的配置#####################33**
 
@@ -421,7 +427,7 @@ eureka.server.property-resolver=
 
 eureka.server.xml-codec-name=
 
- 
+
 
 ***\*#\******###############server node 与 node 之间关联的配置#####################33**
 
@@ -517,7 +523,7 @@ eureka.server.registry-sync-retry-wait-ms=
 
 eureka.server.wait-time-in-ms-when-sync-empty=0
 
- 
+
 
 ***\*#\******###############server 与 remote 关联的配置#####################33**
 
@@ -581,7 +587,7 @@ eureka.server.remote-region-urls=
 
 eureka.server.remote-region-urls-with-name.
 
- 
+
 
 ***\*#\******###############server 与 ASG/AWS/EIP/route52 之间关联的配置#####################33**
 
@@ -641,5 +647,3 @@ eureka.server.route53-binding-retry-interval-ms=30
 
 eureka.server.route53-domain-t-t-l=10
 ```
-
- 
