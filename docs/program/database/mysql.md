@@ -23,27 +23,23 @@
 	-d mysql:8.0.25 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
-> -p 3306:3306->把容器的mysql端口3306映射到宿主机的3306端口，这样想访问mysql就可以直接访问宿主机的3306端口。
+> -p 3306:3306->把容器的 mysql 端口 3306 映射到宿主机的 3306 端口，这样想访问 mysql 就可以直接访问宿主机的 3306 端口。
 >
-> -v /opt/data/mysql:/var/lib/mysql->把宿主机/opt/data/mysql/目录映射到容器的/var/lib/mysql目录
+> -v /opt/data/mysql:/var/lib/mysql->把宿主机/opt/data/mysql/目录映射到容器的/var/lib/mysql 目录
 
 更新时间：2019-03-21
 
-
-
-#### MySQL乐观锁
+#### MySQL 乐观锁
 
 ```
 
 ```
 
+#### SQL 查询语句的执行步骤
 
+![](./mysql.assets/1EA288AB4D8D62103F763325099B0CD3.jpg)
 
-#### SQL查询语句的执行步骤
-
-![](/Users/ligang/github/think-docs/images/1EA288AB4D8D62103F763325099B0CD3.jpg)
-
-图片来自于：极客时间-MySQL实战45讲
+图片来自于：极客时间-MySQL 实战 45 讲
 
 #### 多表查询修改
 
@@ -78,7 +74,7 @@ SHOW VARIABLES -- 显示系统变量信息
 -- 显示当前时间、用户名、数据库版本
 	select now(), user(), version();
 -- 创建库
-	create database[if not exists] 数据库名 数据库选项	
+	create database[if not exists] 数据库名 数据库选项
         数据库选项：
             CHARACTER SET charset_name
             COLLATE collation_name
@@ -89,7 +85,7 @@ SHOW VARIABLES -- 显示系统变量信息
 -- 修改库的选项信息
     ALTER DATABASE 库名 选项信息
 -- 删除库
-    DROP DATABASE[ IF EXISTS] 数据库名       
+    DROP DATABASE[ IF EXISTS] 数据库名
 		同时删除该数据库相关的目录及其目录内容
 ```
 
