@@ -9,13 +9,23 @@
 
 #### [解决GitHub的raw.githubusercontent.com无法连接问题](https://www.cnblogs.com/sinferwu/p/12726833.html)
 
-###### 1、修改hosts Ubuntu，CentOS及macOS直接在终端输入
+###### 1、查询对应的IP地址
+
+```
+# IP查询地址
+# https://www.ipaddress.com/
+# https://site.ip138.com/raw.Githubusercontent.com/
+
+例如：raw.githubusercontent.com
+```
+
+###### 2、修改hosts Ubuntu，CentOS及macOS直接在终端输入
 
 ```
 sudo vi /etc/hosts
 ```
 
-###### 2、添加以下内容保存即可 （IP地址查询后相应修改，可以ping不同IP的延时 选择最佳IP地址）
+###### 3、添加以下内容保存即可 （IP地址查询后相应修改，可以ping不同IP的延时 选择最佳IP地址）
 
 ```
 # GitHub Start

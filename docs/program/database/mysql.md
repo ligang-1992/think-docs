@@ -1,3 +1,36 @@
+#### MySQL
+
+##### 安装
+
+###### 步骤一：拉取镜像
+
+```shell
+~ % docker pull mysql
+```
+
+###### 步骤二：创建容器
+
+```shell
+# 第一种
+~ % docker run -d -v $PWD/devtools/docker/mysql/:/var/lib/mysql -p 3306:3306 --name dev-mysql -e MYSQL_ROOT_PASSWORD=123456 docker.io/mysql
+
+# 第二种（查询忽略表名大小写）
+~ % docker run -p 3306:3306 --name mysql \
+	-v $PWD/devtools/docker/mysql/custom:/etc/mysql/conf.d \
+	-v $PWD/devtools/docker/mysql/datadir:/var/lib/mysql \
+	-e MYSQL_ROOT_PASSWORD=123456 \
+	-e TZ=Asia/Shanghai \
+	-d mysql:8.0.25 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```
+
+> -p 3306:3306->把容器的mysql端口3306映射到宿主机的3306端口，这样想访问mysql就可以直接访问宿主机的3306端口。
+>
+> -v /opt/data/mysql:/var/lib/mysql->把宿主机/opt/data/mysql/目录映射到容器的/var/lib/mysql目录
+
+更新时间：2019-03-21
+
+
+
 #### MySQL乐观锁
 
 ```

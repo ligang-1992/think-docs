@@ -1,3 +1,55 @@
+#### Redis
+
+##### 安装
+
+###### 步骤一：拉取镜像
+
+```shell
+~ % docker pull redis
+```
+
+###### 步骤二：创建容器
+
+```shell
+~ % # 创建redis容器，并设置密码
+~ % docker run --name dev-redis -d -p 6379:6379 -v $PWD/devtools/docker/redis/data:/data redis:latest redis-server --appendonly yes --requirepass "123456"
+
+# 创建redis容器，并挂载配置文件
+~ % docker run --name dev-redis -d -p 6379:6379 -v $PWD/devtools/docker/redis/data:/data -v $PWD/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:6.2.1 redis-server --requirepass "123456"
+
+# 进入redis容器，并且启动redis-cli
+# 方法1
+~ % docker exec -it [container name] or [container id] redis-cli -h 192.168.74.128 -p 6379
+# 方法2
+~ % docker exec -it [container name] or [container id] redis-cli
+
+docker run --name redis -d -p 6379:6379 -v $PWD/devtools/docker/redis/data:/data -v $PWD/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:6.2.3 redis-server --requirepass "123456"
+
+# 连接设置了密码的redis-server
+127.0.0.1:6379> auth password
+```
+
+##### 测试
+
+###### 测试命令
+
+```shell
+# 测试redis单机并发量
+# 1、进入redis容器
+~ % docker exec -it [container name] or [container id] /bin/bash
+# 2、进入"/usr/local/bin"目录下
+root@75e2c66b02df: cd /usr/local/bin
+# 3、运行测试命令
+# -h: 指定服务器主机名，-p: 端口号，-c: 
+root@75e2c66b02df:/usr/local/bin# redis-benchmark  -h localhost -p 6379 -c 100 -n 10000
+```
+
+![image-20200619131714692](/Users/louis/github/document/think-docs/docs/images/docker/image-20200619131714692.png)
+
+######【截图来自菜鸟教程】
+
+
+
 #### 基本操作
 
 ```bash

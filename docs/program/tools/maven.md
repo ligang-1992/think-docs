@@ -1,6 +1,20 @@
+##### Maven 环境配置
+
+```
+# 输入命令
+➜  ~ vim ~/.bash_profile
+
+# 写入配置
+# maven
+export M2_HOME=/Users/louis/devtools/maven/apache-maven-3.6.3
+export PATH=$PATH:$M2_HOME/bin
+```
+
+
+
 #### oracle jar包无法解析
 
-##### 1、pom.xm 配置本地仓库
+##### pom.xm 配置本地仓库
 
 ```xml
 		<repositories>
@@ -39,9 +53,26 @@
     </pluginRepositories>
 ```
 
-##### 2、maven 本地仓库安装oracle jar包
+
+
+##### maven 本地仓库安装oracle jar包
 
 ```shell
 ~ % mvn install:install-file -DgroupId=com.Oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -D file=ojdbc14-10.2.0.4.0.jar
+```
+
+
+
+##### maven本地仓库安装jar包
+
+```
+➜  ~ mvn install:install-file -DgroupId=com.hnxt -DartifactId=encryptutil -Dversion=1.0 -Dpackaging=jar -Dfile=/Users/louis/.m2/repository/cn/encrypt/util/encryptutil-jar-with-dependencies.jar
+
+安装指定文件到本地仓库命令：mvn install:install-file
+-DgroupId=<groupId>       : 设置项目代码的包名(一般用组织名)
+-DartifactId=<artifactId> : 设置项目名或模块名 
+-Dversion=1.0.0           : 版本号
+-Dpackaging=jar           : 什么类型的文件(jar包)
+-Dfile=<myfile.jar>       : 指定jar文件路径与文件名(同目录只需文件名)
 ```
 

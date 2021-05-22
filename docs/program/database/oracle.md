@@ -1,3 +1,131 @@
+#### Oracle Database
+
+##### 安装
+
+###### 步骤一：拉取镜像
+
+```shell
+# 拉取image：
+~ % docker pull store/oracle/database-enterprise:12.2.0.1
+```
+
+###### 步骤二：创建容器
+
+```shell
+# 第一种创建oracle容器的方法：
+~ % docker login
+~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500  -v $PWD/devtools/docker/oracle/data:/ORCL --env-file $PWD/devtools/docker/oracle/env/env.dat store/oracle/database-enterprise:12.2.0.1
+
+# 第二种创建oracle容器的方法(已经连接成功)：
+~ % docker login
+~ % docker run -d -it --name dev-oracle -p 1521:1521 -p 5500:5500 -v $PWD/devtools/docker/oracle/data:/ORCL store/oracle/database-enterprise:12.2.0.1
+
+# oracle 默认密码： Oradoc_db1
+```
+
+###### 步骤三：进入容器创建存放表空间文件的文件夹
+
+```shell
+# 进入oracle容器的方法
+# 进入容器并连接数据库
+~ % docker exec -it dev-oracle bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+# ~ % sqlplus sys/Oradoc_db1@ORCLCDB as sysdba
+# 以root权限进入容器
+~ % docker exec -it --user root dev-oracle /bin/bash
+~ % docker exec -it --user oracle dev-oracle /bin/bash
+
+# 创建表空间存放路径
+[root@a3b2f1adcd02 /]# mkdir -p /home/oracle/data/retail
+# 给oracle用户赋权，以便创建表空间文件
+[root@a3b2f1adcd02 /]# chown -R oracle:oinstall /home/oracle/data/retail/
+
+# 配置环境
+[root@5b410880417d /]# vi /etc/profile
+# 加在配置文件最后
+export ORACLE_HOME=/home/oracle/app/oracle/product/12.2.0.1/dbhome_2
+export ORACLE_SID=ORCLCDB
+export PATH=$ORACLE_HOME/bin:$PATH
+# 软件连接
+[root@a3b2f1adcd02 /]#  ln -s $ORACLE_HOME/bin/sqlplus /usr/bin
+```
+
+###### 步骤四：创建表空间以及用户
+
+```sql
+# 连接数据库
+SQL> conn / as sysdba;
+# 修改用户密码
+SQL> alter user system identified by 123456;
+SQL> alter user sys identified by 123456;
+SQL> ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+
+# 查看所有表空间
+SQL> select tablespace_name,status,contents from user_tablespaces; 
+SQL> alter session set container=cdb$root;
+
+SQL> alter session set container=ORCLPDB1;
+
+# 创建表空间
+SQL> create tablespace retail datafile '/u02/app/oracle/oradata/ORCL/temp02.dbf'  size 200M autoextend on next 50M;
+SQL> create tablespace retail datafile '/home/oracle/data/cdb/retail.dbf' size 200M autoextend on next 50M;
+SQL> create tablespace retail datafile '/home/oracle/data/pdb/retail.dbf' size 200M autoextend on next 50M;
+
+SQL> create tablespace retail datafile '/home/oracle/data/retail/retail.dbf' size 10M autoextend on maxsize 1G;
+
+# 在表空间上创建用户
+create user c##retail identified by 123456 default tablespace RETAIL temporary tablespace TEMP;
+# 第一种创建用户的方法
+SQL> create user retail identified by 123456 default tablespace retail;
+# 第二种创建用户的方法 cdb下
+SQL> create user c##retail identified by 123456 default tablespace retail;
+
+# 修改密码
+SQL> alter user retail identified by 123456;
+
+# 删除用户
+SQL> DROP USER retail CASCADE;
+
+# 给新建的用户赋权
+SQL> grant connect,resource,dba to C##RETAIL;
+
+# delete tablespace
+SQL> drop tablespace retail including contents and datafiles
+
+-- 1 查看系统中的容器：
+--    select con_id,dbid,NAME,OPEN_MODE from v$pdbs;
+-- 2 先打开pdb容器：
+--    alter pluggable database ORCLPDB1 open;
+-- 3再查看容器，pdb应该是READ，WRITE：
+--    select con_id,dbid,NAME,OPEN_MODE from v$pdbs;
+-- 4切换容器：
+--    alter session set container=ORCLPDB1;
+-- 5查看当前使用的容器
+--    select sys_context ('USERENV', 'CON_NAME') from dual;
+-- create tablespace retail 
+-- datafile '/u02/app/oracle/oradata/ORCL/retail.dbf' 
+-- size 50M 
+-- autoextend on next 50m maxsize 2048m 
+-- extent management local;
+-- 
+-- create temporary tablespace retail_temp
+-- tempfile '/u02/app/oracle/oradata/ORCL/retail_temp.dbf'
+-- size 32m
+-- autoextend on next 32m maxsize 1024m
+-- extent management local;
+
+create user henfengyu identified by 123456 default tablespace retail
+temporary tablespace retail_temp;
+
+grant connect,resource to henfengyu;
+grant dba to henfengyu;
+
+alter user henfengyu account unlock identified by 123456;
+```
+
+更新时间：2020-03-21
+
+
+
 ##### 查看表结构修改记录
 
 ```sql
