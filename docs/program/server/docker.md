@@ -262,6 +262,44 @@ Options:
 
 
 
+##### Etcd
+
+```shell
+# 原版脚本
+docker run -d --name Etcd-server \
+    --network app-tier \
+    --publish 2379:2379 \
+    --publish 2380:2380 \
+    --env ALLOW_NONE_AUTHENTICATION=yes \
+    --env ETCD_ADVERTISE_CLIENT_URLS=http://etcd-server:2379 \
+    bitnami/etcd:latest
+    
+# 修改版
+docker run -d --name etcd-server \
+    --publish 2379:2379 \
+    --publish 2380:2380 \
+    --env ALLOW_NONE_AUTHENTICATION=yes \
+    --env ETCD_ADVERTISE_CLIENT_URLS=http://etcd-server:2379 \
+    bitnami/etcd:3.5.2
+```
+
+
+
+##### MockServer
+
+```
+docker run -d -p 1080:1080 --name mockserver \
+	-v $PWD/devtools/docker/mockserver/config:/config \
+	-v $PWD/devtools/docker/mockserver/libs:/libs \
+	mockserver/mockserver \
+	-logLevel INFO -serverPort 1080
+	
+# config
+-logLevel INFO -serverPort 1080 -proxyRemotePort 443 -proxyRemoteHost mock-server.com
+```
+
+
+
 ##### SonarQube
 
 ```shell
@@ -311,6 +349,55 @@ netstat -antp | grep sshd
 
 
 
+
+
+#### Apache ZooKeeper
+
+##### 安装
+
+###### 步骤一：拉取镜像
+
+```shell
+~ % docker pull zookeeper
+```
+
+###### 步骤二：创建容器
+
+```shell
+# 第一种
+~ % docker run -d -p 2181:2181 -v $PWD/devtools/docker/zookeeper/data/:/data/ --name=dev-zookeeper --privileged zookeeper
+
+# 第二种
+~ % docker run -d -p 2181:2181 --name zookeeper \
+      -v /Users/luffy/Docker/zookeeper/conf/zoo.cfg:/conf/zoo.cfg \
+      -v /Users/luffy/Docker/zookeeper/logs:/logs/zookeeper.log --restart always \
+      -e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" \
+      -e JVMFLAGS="-Dzookeeper.serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory" \
+      -e JVMFLAGS="-Xmx1024m" zookeeper:3.8.0
+      
+      
+ docker run -p 2181:2181 \
+ 	--name zookeeper-server --restart always -d \
+ 	-e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" \
+ 	-v /Users/luffy/Docker/zookeeper/logs:/logs/zookeeper.log \
+ 	-v /Users/luffy/Docker/zookeeper/conf/zoo.cfg:/conf/zoo.cfg \
+ 	zookeeper:3.8.0
+```
+
+###### 步骤三：执行进程
+
+```shell
+~ % docker exec -it [container id] /bin/bash 
+# 进入docker的zookeeper容器，找到zkCli.sh，执行./zkCli.sh
+
+# 启动zookeeper客户端
+root@44bf9b0d1b30:/apache-zookeeper-3.6.2-bin/bin# ./zkCli.sh
+```
+
+更新时间：2019-03-21
+
+
+
 #### Kafka
 
 ##### 安装
@@ -327,10 +414,26 @@ netstat -antp | grep sshd
 # 方法一
 ~ % docker run -d --restart=always --log-driver json-file --log-opt max-size=100m --log-opt max-file=2 \
 	--name dev-kafka -p 9092:9092 \
-	-e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=127.0.0.1:2181/kafka \
+	-e KAFKA_BROKER_ID=0 \
+	-e KAFKA_ZOOKEEPER_CONNECT=127.0.0.1:2181/kafka \
 	-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092 \
 	-e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
 	-v /etc/localtime:/etc/localtime wurstmeister/kafka:2.13-2.7.0
+	
+	
+docker run -p 9092:9092 -d --restart=always \
+		--name kafka-server \
+    -e KAFKA_BROKER_ID=0 \
+    -e KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
+    -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
+    -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 \
+    -e ALLOW_PLAINTEXT_LISTENER=yes \
+    -v /etc/localtime:/etc/localtime \
+    bitnami/kafka:3.1.1
+    
+docker run -it --rm \
+    -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 \
+    bitnami/kafka:3.1.1 kafka-topics.sh --list  --bootstrap-server 127.0.0.1:9092
  
 ```
 
@@ -350,16 +453,16 @@ netstat -antp | grep sshd
 
 ```shell
 # 方法一
-~ % docker run --rm -d -p 9870:80 --name dev-nginx -v $PWD/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro nginx:1.19.1
+~ % docker run --rm -d -p 9870:80 --name dev-nginx -v /home/software/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro nginx:1.19.1
 
 # 方法二
-~ % docker run -d -p 9870:80 --name dev-nginx -v $PWD/devtools/docker/nginx/content:/usr/share/nginx/html:ro -v $PWD/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro  -v $PWD/devtools/docker/nginx/cache:/var/cache/nginx -v $PWD/devtools/docker/nginx/pid:/var/run nginx:1.19.10
+~ % docker run -d -p 9870:80 --name dev-nginx -v /home/software/docker/nginx/content:/usr/share/nginx/html:ro -v /home/software/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro  -v /home/software/docker/nginx/cache:/var/cache/nginx -v /home/software/docker/nginx/pid:/var/run nginx:1.19.10
 
 ~ % docker run -d -p 9870:80 --name nginx \
-	-v $PWD/devtools/docker/nginx/content:/usr/share/nginx/html:ro \
-	-v $PWD/devtools/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
-	-v $PWD/devtools/docker/nginx/cache:/var/cache/nginx \
-	-v $PWD/devtools/docker/nginx/pid:/var/run nginx:1.20.0
+	-v /home/software/docker/nginx/content:/usr/share/nginx/html:ro \
+	-v /home/software/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+	-v /home/software/docker/nginx/cache:/var/cache/nginx \
+	-v /home/software/docker/nginx/pid:/var/run nginx:1.21.6
 ```
 
 
@@ -377,7 +480,12 @@ netstat -antp | grep sshd
 
 ```shell
 # 方法1
-~ % docker run -p 9200:9200 -p 9300:9300 --name dev-elk -e "discovery.type=single-node" -e "cluster.name=elasticsearch" -v $PWD/devtools/docker/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins -v $PWD/devtools/docker/elk/elasticsearch/data:/usr/share/elasticsearch/data -d elasticsearch:7.6.2 
+~ % docker run -p 9200:9200 -p 9300:9300 --name dev-elk 
+	-e "discovery.type=single-node" \
+  -e "cluster.name=elasticsearch" \
+  -v $PWD/devtools/docker/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+  -v $PWD/devtools/docker/elk/elasticsearch/data:/usr/share/elasticsearch/data \
+  -d elasticsearch:7.6.2 
 
 # 方法2 官方版
 ~ % docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:tag
@@ -440,6 +548,7 @@ netstat -antp | grep sshd
 ```shell
 # 拉取容器：
 ～ % docker pull nacos/nacos-server
+docker pull nacos/nacos-server:v2.0.4
 ```
 
 ###### 步骤二：创建容器
@@ -447,12 +556,17 @@ netstat -antp | grep sshd
 ```shell
 # 创建容器：
 # 标准版
-～ % docker run --env MODE=standalone --name dev-nacos -d -p 8848:8848 nacos/nacos-server
+～ % docker run --env MODE=standalone --name dev-nacos -d -p --restart=always 8848:8848 nacos/nacos-server
 
 # 详细版
-~ % docker run --name dev-nacos -d -p 8848:8848 --privileged=true --restart=always \
--e JVM_XMS=256m -e JVM_XMX=256m -e MODE=standalone -e PREFER_HOST_MODE=hostname \
--v $PWD/devtools/docker/nacos/logs:/home/nacos/logs nacos/nacos-server:2.0.0
+~ % docker run -d -p 8848:8848 --name work-nacos \
+	--privileged=true \
+	-e JVM_XMS=256m \
+	-e JVM_XMX=256m \
+	-e MODE=standalone \
+	-e PREFER_HOST_MODE=hostname \
+	-v /home/software/docker/work-nacos/logs:/home/nacos/logs \
+	nacos/nacos-server:v2.0.4
 ```
 
 更新时间：2020-03-21
@@ -498,43 +612,3 @@ docker run --name mariadb \
 	-d mariadb:10.6.0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
-
-
-
-
-#### Apache ZooKeeper
-
-##### 安装
-
-###### 步骤一：拉取镜像
-
-```shell
-~ % docker pull zookeeper
-```
-
-###### 步骤二：创建容器
-
-```shell
-# 第一种
-~ % docker run -d -p 2181:2181 -v $PWD/devtools/docker/zookeeper/data/:/data/ --name=dev-zookeeper --privileged zookeeper
-
-# 第二种
-~ % docker run -d -p 2181:2181 --name dev-zookeeper \
--v $(pwd)/devtools/docker/zookeeper/conf/zoo.cfg:/conf/zoo.cfg \
--v $(pwd)/devtools/docker/zookeeper/logs:/logs/zookeeper.log --restart always \
--e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" \
--e JVMFLAGS="-Dzookeeper.serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory" \
--e JVMFLAGS="-Xmx1024m" zookeeper:3.7.0
-```
-
-###### 步骤三：执行进程
-
-```shell
-~ % docker exec -it [container id] /bin/bash 
-# 进入docker的zookeeper容器，找到zkCli.sh，执行./zkCli.sh
-
-# 启动zookeeper客户端
-root@44bf9b0d1b30:/apache-zookeeper-3.6.2-bin/bin# ./zkCli.sh
-```
-
-更新时间：2019-03-21

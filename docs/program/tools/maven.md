@@ -59,6 +59,14 @@ export PATH=$PATH:$M2_HOME/bin
 
 ```shell
 ~ % mvn install:install-file -DgroupId=com.Oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -D file=ojdbc14-10.2.0.4.0.jar
+
+mvn install:install-file -DgroupId=com.rzt -DartifactId=rzt-base -Dversion=1.0.0 -Dpackaging=jar -D file=rzt-base-1.0.0.jar
+
+mvn install:install-file -DgroupId=com.rzt -DartifactId=rzt-starter-cloud -Dversion=1.0.0 -Dpackaging=jar -D file=rzt-starter-cloud-1.0.0.jar
+
+mvn install:install-file -DgroupId=com.rzt -DartifactId=rzt-starter-job -Dversion=1.0.0 -Dpackaging=jar -D file=rzt-starter-job-1.0.0.jar
+
+mvn install:install-file -DgroupId=com.rzt -DartifactId=rzt-starter-lock -Dversion=1.0.0 -Dpackaging=jar -D file=rzt-starter-lock-1.0.0.jar
 ```
 
 

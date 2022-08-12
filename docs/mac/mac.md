@@ -1,3 +1,58 @@
+##### Mac Iterm2 配置rz、sz命令
+
+```
+# 第一步 安装lrzsz
+brew install lrzsz
+
+# 第二步 下载iterm2-zmodem
+git clone https://github.com/aikuyun/iterm2-zmodem.git
+cd iterm2-zmodem
+
+cp iterm2-* /usr/local/bin
+cd /usr/local/bin
+chmod +x iterm2-*
+
+# 第三步 进入iterm2配置项 profiles->default->editProfiles->Advanced中的Tirgger
+Regular expression:  \*\*B0100
+Action: Run Silent Coprocess
+Parameters: /usr/local/bin/iterm2-send-zmodem.sh
+
+Regular expression:  \*\*B00000000000000
+Action: Run Silent Coprocess
+Parameters: /usr/local/bin/iterm2-recv-zmodem.sh
+```
+
+
+
+#### 修复mac终端命令失效
+
+```shell
+# 步骤一
+PATH=/bin:/usr/bin:/usr/local/bin:${PATH}  
+
+# 步骤二
+export PATH
+```
+
+
+
+#### Homebrew 完全卸载软件 And 依赖包
+
+```
+# 前记
+# 鉴于 brew uninstall 只会卸载软件包本身而不会卸载其依赖包，所以我们用 homebrew-rmtree 来解决完全卸载
+homebrew-rmtree
+
+# 安装
+brew tap beeftornado/rmtree
+
+# 使用
+brew rmtree pyenv-virtualenv
+brew cleanup
+```
+
+
+
 #### Mac查看端口占用
 
 ```shell

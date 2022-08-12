@@ -1,3 +1,45 @@
+##### 批量停止服务
+
+```
+# rzt 为匹配项目的名称
+ps -ef | grep rzt |grep -v grep |gawk '{print$2}'|xargs kill -9
+```
+
+
+
+##### 设置linux账号登陆状态不超时
+
+```
+export TMOUT=0
+```
+
+
+
+##### Linux下载与上传命令
+
+```shell
+# 上传
+rz
+
+# 下载
+sz 文件名
+```
+
+
+
+##### Linux查看性能占比
+
+```
+# 查看linux资源
+free
+
+# 查看性能占比
+top
+# top命令执行之后，按下C，显示应用名称
+```
+
+
+
 #### 2019-05-01	09:28
 
 ##### CentOS 7 内核更新后删除旧内核

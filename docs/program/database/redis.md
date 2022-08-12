@@ -23,7 +23,10 @@
 # 方法2
 ~ % docker exec -it [container name] or [container id] redis-cli
 
-docker run --name redis -d -p 6379:6379 -v $PWD/devtools/docker/redis/data:/data -v $PWD/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf redis:6.2.3 redis-server --requirepass "123456"
+~ % docker run --name redis -d -p 6379:6379 \
+	-v $PWD/devtools/docker/redis/data:/data \
+	-v $PWD/devtools/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+	redis:6.2.6 redis-server --requirepass "123456"
 
 # 连接设置了密码的redis-server
 127.0.0.1:6379> auth password

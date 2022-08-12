@@ -1,3 +1,29 @@
+#### 优化器追踪示例 
+
+```shell
+# 1.查看优化器状态
+show variables like 'optimizer_trace';
+
+# 2.会话级别临时开启
+set session optimizer_trace="enabled=on",end_markers_in_json=on;
+
+# 3.设置优化器追踪的内存大小
+set OPTIMIZER_TRACE_MAX_MEM_SIZE=1000000;
+
+# 4.执行自己的SQL
+select host,user,plugin from user;
+
+# 5.information_schema.optimizer_trace表
+SELECT trace FROM information_schema.OPTIMIZER_TRACE;
+
+# 6.导入到一个命名为xx.trace的文件，然后用JSON阅读器来查看（如果没有控制台权限，或直接交由运维，让他把该 trace 文件，输出给你就行了。 ）。
+SELECT TRACE INTO DUMPFILE "E:\\test.trace" FROM INFORMATION_SCHEMA.OPTIMIZER_TRACE;
+```
+
+###### **注意：不设置优化器最大容量的话，可能会导致优化器返回的结果不全。**
+
+
+
 #### MySQL
 
 ##### 安装
@@ -20,7 +46,16 @@
 	-v $PWD/devtools/docker/mysql/datadir:/var/lib/mysql \
 	-e MYSQL_ROOT_PASSWORD=123456 \
 	-e TZ=Asia/Shanghai \
-	-d mysql:8.0.25 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+	-d mysql:8.0.28 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+	
+docker run -d \
+		-p 3306:3306 \
+		--name mysql \
+		-v /home/software/docker/mysql/custom:/etc/mysql/conf.d \
+		-v /home/software/docker/mysql/datadir:/var/lib/mysql \
+		-e MYSQL_ROOT_PASSWORD=123456 \
+		-e TZ=Asia/Shanghai \
+		mysql:8.0.28 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
 > -p 3306:3306->把容器的 mysql 端口 3306 映射到宿主机的 3306 端口，这样想访问 mysql 就可以直接访问宿主机的 3306 端口。
@@ -90,3 +125,16 @@ SHOW VARIABLES -- 显示系统变量信息
 ```
 
 #### 表的操作
+
+###### mysql查询表内所有字段名和备注
+
+```sql
+SELECT DISTINCT
+	column_name AS 字段名,
+	column_comment AS 字段备注 
+FROM
+	information_schema.COLUMNS 
+WHERE
+	table_name = 'fans';
+```
+

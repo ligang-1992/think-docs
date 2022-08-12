@@ -1,4 +1,50 @@
-卸载Golang
+#### go热部署
+
+##### install air
+
+```shell
+go install github.com/cosmtrek/air@latest
+```
+
+##### air启动项目
+
+```shell
+# 进入项目目录
+cd /path/to/your_project
+# air 环境初始化
+air init
+# air 启动项目
+air
+```
+
+
+
+#### gRPC
+
+```shell
+# 1、安装gRPC
+$ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
+$ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
+
+# 2、配置插件编译路径
+$ export PATH="$PATH:$(go env GOPATH)/bin"
+
+# 3、编写 xxx.proto 文件
+
+# 4、生成文件命令
+# option go_package = "./;pb"; 
+# 注意：`./`：文件路径 `pb`：包名
+# paths参数
+# 使用 source_relative 则不会使用option go_package中指定的路径
+# 使用 import 则是使用option go_package 中指定的路径
+$ protoc --go_out=. --go_opt=paths=source_relative \
+    --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+    helloworld/helloworld.proto
+```
+
+
+
+##### 卸载Golang
 
 ```shell
 # 1、查看路径在哪里：
@@ -22,6 +68,8 @@
 官网下载安装包，默认安装就好
 ```
 
+
+
 #### 配置开发环境
 
 ```shell
@@ -32,8 +80,14 @@
 # 步骤一：打开GoMOD
 ~ % go env -w GO111MODULE=on
 # 步骤二：配置代理
-~ % go env -w GOPROXY=https://goproxy.cn,direct
+# 方式一
+~ % go env -w GOPROXY=https://goproxy.io,direct
+
+# 方式二
+~ % go env -w GOPROXY=https://goproxy.cn/,direct
 ```
+
+
 
 #### 在VSCode中安装Go插件
 

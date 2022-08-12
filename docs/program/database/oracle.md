@@ -203,3 +203,38 @@ select 列名,sum(需要累加的列名) over(partition by 列名 order by 列�
 select t.table_name, t.num_rows from user_tables t;
 ```
 
+###### 查询oracle表名、列名
+
+```sql
+# 查询表名、列名
+SELECT
+	a.table_name,
+	b.column_name,
+	b.data_type,
+	b.data_length,
+	b.data_precision,
+	b.data_scale 
+FROM
+	dba_tables a,
+	dba_tab_columns b 
+WHERE
+	a.owner = 'SDJK' 
+	AND a.table_name = b.table_name;
+
+# 查询列名
+SELECT
+	* 
+FROM
+	dba_tab_columns 
+WHERE
+	ROWNUM < 100;
+	
+# 查询表明
+SELECT
+	* 
+FROM
+	dba_tables 
+WHERE
+	owner = 'SDJK';
+```
+
