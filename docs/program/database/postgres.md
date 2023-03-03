@@ -1,3 +1,68 @@
+#### PostGIS教程:几何图形（geometry）
+
+```
+ST_Area: Returns the area of the surface if it is a polygon or multi-polygon. For “geometry” type area is in SRID units. For “geography” area is in square meters.
+
+ST_AsText: Returns the Well-Known Text (WKT) representation of the geometry/geography without SRID metadata.
+
+ST_AsBinary: Returns the Well-Known Binary (WKB) representation of the geometry/geography without SRID meta data.
+
+ST_EndPoint: Returns the last point of a LINESTRING geometry as a POINT.
+
+ST_AsEWKB: Returns the Well-Known Binary (WKB) representation of the geometry with SRID meta data.
+
+ST_AsEWKT: Returns the Well-Known Text (WKT) representation of the geometry with SRID meta data.
+
+ST_AsGeoJSON: Returns the geometry as a GeoJSON element.
+
+ST_AsGML: Returns the geometry as a GML version 2 or 3 element.
+
+ST_AsKML: Returns the geometry as a KML element. Several variants. Default version=2, default precision=15.
+
+ST_AsSVG: Returns a Geometry in SVG path data given a geometry or geography object.
+
+ST_ExteriorRing: Returns a line string representing the exterior ring of the POLYGON geometry. Return NULL if the geometry is not a polygon. Will not work with MULTIPOLYGON
+
+ST_GeometryN: Returns the 1-based Nth geometry if the geometry is a GEOMETRYCOLLECTION, MULTIPOINT, MULTILINESTRING, MULTICURVE or MULTIPOLYGON. Otherwise, return NULL.
+
+ST_GeomFromGML: Takes as input GML representation of geometry and outputs a PostGIS geometry object.
+
+ST_GeomFromKML: Takes as input KML representation of geometry and outputs a PostGIS geometry object
+
+ST_GeomFromText: Returns a specified ST_Geometry value from Well-Known Text representation (WKT).
+
+ST_GeomFromWKB: Creates a geometry instance from a Well-Known Binary geometry representation (WKB) and optional SRID.
+
+ST_GeometryType: Returns the geometry type of the ST_Geometry value.
+
+ST_InteriorRingN: Returns the Nth interior linestring ring of the polygon geometry. Return NULL if the geometry is not a polygon or the given N is out of range.
+
+ST_Length: Returns the 2d length of the geometry if it is a linestring or multilinestring. geometry are in units of spatial reference and geography are in meters (default spheroid)
+
+ST_NDims: Returns coordinate dimension of the geometry as a small int. Values are: 2,3 or 4.
+
+ST_NPoints: Returns the number of points (vertexes) in a geometry.
+
+ST_NRings: If the geometry is a polygon or multi-polygon returns the number of rings.
+
+ST_NumGeometries: If geometry is a GEOMETRYCOLLECTION (or MULTI*) returns the number of geometries, otherwise return NULL.
+
+ST_Perimeter: Returns the length measurement of the boundary of an ST_Surface or ST_MultiSurface value. (Polygon, Multipolygon)
+
+ST_SRID: Returns the spatial reference identifier for the ST_Geometry as defined in spatial_ref_sys table.
+
+ST_StartPoint: Returns the first point of a LINESTRING geometry as a POINT.
+
+ST_X: Returns the X coordinate of the point, or NULL if not available. Input must be a point.
+
+ST_Y: Returns the Y coordinate of the point, or NULL if not available. Input must be a point.
+————————————————
+版权声明：本文为CSDN博主「zhangkaixuan456」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/zhangkaixuan456/article/details/121275736
+```
+
+
+
 #### PostgreSQL–常用字符串函数与操作符
 
 ```
